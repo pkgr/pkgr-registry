@@ -1,11 +1,12 @@
-from ubuntu:12.04
+from debian:7
 
-run echo "deb http://archive.ubuntu.com/ubuntu/ precise main restricted universe" > /etc/apt/sources.list
-run echo "deb http://archive.ubuntu.com/ubuntu/ precise-updates main restricted universe" >> /etc/apt/sources.list
-run echo "deb http://security.ubuntu.com/ubuntu/ precise-security main restricted universe" >> /etc/apt/sources.list
+run echo "deb http://http.debian.net/debian wheezy main" > /etc/apt/sources.list
+run echo "deb http://http.debian.net/debian wheezy-updates main" >> /etc/apt/sources.list
+run echo "deb http://security.debian.org/ wheezy/updates main" >> /etc/apt/sources.list
+run echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
 
-run apt-get -y update
-run apt-get -y upgrade
+run apt-get update -y
+run apt-get upgrade -y
 
 run apt-get -y install \
   wget \
@@ -14,7 +15,8 @@ run apt-get -y install \
   sudo \
   lsb-release \
   curl \
-  libssl0.9.8 \
+  vim \
+  libssl1.0.0 \
   libmysqlclient-dev \
   libpq-dev \
   libsqlite3-0 \
@@ -28,13 +30,8 @@ run apt-get -y install \
 
 run ( gem -v | grep 2.2.1 ) || ( REALLY_GEM_UPDATE_SYSTEM=1 gem update --system --no-ri --no-rdoc )
 
-run apt-get -y install upstart postgresql-9.1 postgresql-contrib-9.1
-
-run apt-get install python-software-properties -y
-run add-apt-repository ppa:chris-lea/redis-server
-run apt-get update
-
-run apt-get install -y redis-server="2:2.8.9-1chl1~precise1"
+run apt-get -y install postgresql-9.1 postgresql-contrib-9.1
+run apt-get -y install redis-server
 
 run mkdir -p /opt
 
@@ -59,3 +56,8 @@ run echo "pkgr ALL= NOPASSWD: /usr/bin/apt-get\npkgr ALL= NOPASSWD: /usr/sbin/se
 run chown -R pkgr.pkgr /opt
 
 run chmod 4111 /usr/bin/sudo
+
+run apt-get install -y dh-make cmake pkg-config
+run apt-get install -y socat
+run apt-get install -y bzr mercurial
+run locale-gen en_US en_US.UTF-8
