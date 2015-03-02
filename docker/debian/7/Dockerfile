@@ -20,7 +20,7 @@ run apt-get -y install libmagickcore-dev
 run apt-get -y install build-essential
 run apt-get -y install dh-make cmake pkg-config
 run apt-get -y install socat
-run apt-get -y install bzr 
+run apt-get -y install bzr
 run apt-get -y install mercurial
 run apt-get -y install zip
 
