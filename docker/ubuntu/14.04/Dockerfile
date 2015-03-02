@@ -5,7 +5,6 @@ run apt-get -y update
 run apt-get -y install \
   wget \
   git \
-  ruby1.9.1 ruby1.9.1-dev \
   sudo \
   lsb-release \
   curl \
@@ -26,9 +25,9 @@ run apt-get install -y socat
 run apt-get install -y bzr mercurial
 run apt-get install -y zip
 
-run REALLY_GEM_UPDATE_SYSTEM=1 gem update --system --no-ri --no-rdoc
-
 run locale-gen en_US en_US.UTF-8
+
+run curl https://s3.amazonaws.com/pkgr-buildpack-ruby/current/ubuntu-14.04/ruby-2.1.5.tgz -o - | tar xzf - -C /usr/local
 
 run apt-get clean
 run rm -rf /usr/local/src/*
