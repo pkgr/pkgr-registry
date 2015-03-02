@@ -1,4 +1,4 @@
-from centos:6.4
+from centos:6
 
 run yum update -y
 run yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
