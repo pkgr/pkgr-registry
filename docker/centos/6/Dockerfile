@@ -1,6 +1,4 @@
-from centos:centos6
-
-run yum check-update || true
+from centos:6
 
 run yum -y install \
   git \
@@ -20,28 +18,6 @@ run yum -y install \
 
 run yum install -y rpm-build
 
-# required for postgres
-run echo "NETWORKING=yes" > /etc/sysconfig/network
-
-# setup postgres
-run yum install -y http://yum.postgresql.org/9.1/redhat/rhel-6-x86_64/pgdg-centos91-9.1-4.noarch.rpm
-run yum install -y postgresql91-server
-run ln -s /etc/init.d/postgresql-9.1 /etc/init.d/postgresql
-run service postgresql initdb
-
-# setup postgres database
-run service postgresql start && sleep 3 && \
-  echo "CREATE USER \"user\" SUPERUSER PASSWORD 'pass';" | su - postgres -c psql && \
-  echo "CREATE DATABASE dbname;" | su - postgres -c psql && \
-  echo "GRANT ALL PRIVILEGES ON DATABASE \"dbname\" TO \"user\";" | su - postgres -c psql
-
-# setup redis
-# run curl http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm > epel-release-6-8.noarch
-# rpm -Uvh epel-release-6*.rpm
-# epel is required for the dependencies
-run yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-run yum install -y http://rpms.famillecollet.com/enterprise/6/remi/x86_64/redis-2.8.17-2.el6.remi.x86_64.rpm
-run ln -s /etc/init.d/redis /etc/init.d/redis-server
 run yum install -y tar
 
 # install ruby

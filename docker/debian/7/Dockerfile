@@ -1,50 +1,37 @@
 from debian:7
 
-run echo "deb http://http.debian.net/debian wheezy main" > /etc/apt/sources.list
-run echo "deb http://http.debian.net/debian wheezy-updates main" >> /etc/apt/sources.list
-run echo "deb http://security.debian.org/ wheezy/updates main" >> /etc/apt/sources.list
-run echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list
-
 run apt-get update -y
-run apt-get upgrade -y
 
-run apt-get -y install \
-  wget \
-  git \
-  ruby1.9.1-full \
-  sudo \
-  lsb-release \
-  curl \
-  vim \
-  libssl1.0.0 \
-  libmysqlclient-dev \
-  libpq-dev \
-  libsqlite3-0 \
-  libevent-dev \
-  libssl-dev \
-  libxml2-dev \
-  libxslt1-dev \
-  libreadline-dev \
-  build-essential \
-  libmagickcore-dev
+run apt-get -y install wget curl
+run apt-get -y install sudo
+run apt-get -y install lsb-release
+run apt-get -y install git
+run apt-get -y install ruby1.9.1 ruby1.9.1-dev
+run apt-get -y install libssl1.0.0
+run apt-get -y install libmysqlclient-dev
+run apt-get -y install libpq-dev
+run apt-get -y install libsqlite3-0
+run apt-get -y install libevent-dev
+run apt-get -y install libssl-dev
+run apt-get -y install libxml2-dev
+run apt-get -y install libxslt1-dev
+run apt-get -y install libreadline-dev
+run apt-get -y install libmagickcore-dev
+run apt-get -y install build-essential
+run apt-get -y install dh-make cmake pkg-config
+run apt-get -y install socat
+run apt-get -y install bzr 
+run apt-get -y install mercurial
+run apt-get -y install zip
 
-run ( gem -v | grep 2.2.1 ) || ( REALLY_GEM_UPDATE_SYSTEM=1 gem update --system --no-ri --no-rdoc )
-
-run apt-get -y install postgresql-9.1 postgresql-contrib-9.1
-run apt-get -y install redis-server
+run REALLY_GEM_UPDATE_SYSTEM=1 gem update --system --no-ri --no-rdoc
 
 run mkdir -p /opt
 
-run apt-get install -y zip
 run cd /opt && git clone https://github.com/kennethreitz/bpwatch.git && cd bpwatch && make && ln -sf /opt/bpwatch/bpwatch /usr/local/bin/
 
 run apt-get clean
 run rm -rf /usr/local/src/*
-
-run service postgresql start && \
-  echo "CREATE USER \"user\" SUPERUSER PASSWORD 'pass';" | su - postgres -c psql && \
-  echo "CREATE DATABASE dbname;" | su - postgres -c psql && \
-  echo "GRANT ALL PRIVILEGES ON DATABASE \"dbname\" TO \"user\";" | su - postgres -c psql
 
 run adduser pkgr --shell /bin/bash --disabled-password --gecos "" --home /home/pkgr --uid 1234 --group --system
 
@@ -56,8 +43,3 @@ run echo "pkgr ALL= NOPASSWD: /usr/bin/apt-get\npkgr ALL= NOPASSWD: /usr/sbin/se
 run chown -R pkgr.pkgr /opt
 
 run chmod 4111 /usr/bin/sudo
-
-run apt-get install -y dh-make cmake pkg-config
-run apt-get install -y socat
-run apt-get install -y bzr mercurial
-run locale-gen en_US en_US.UTF-8

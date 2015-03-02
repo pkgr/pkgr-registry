@@ -1,7 +1,5 @@
 from centos:7
 
-run yum check-update || true
-
 run yum -y install \
   git \
   vim \

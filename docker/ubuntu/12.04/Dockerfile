@@ -1,11 +1,6 @@
 from ubuntu:12.04
 
-run echo "deb http://archive.ubuntu.com/ubuntu/ precise main restricted universe" > /etc/apt/sources.list
-run echo "deb http://archive.ubuntu.com/ubuntu/ precise-updates main restricted universe" >> /etc/apt/sources.list
-run echo "deb http://security.ubuntu.com/ubuntu/ precise-security main restricted universe" >> /etc/apt/sources.list
-
 run apt-get -y update
-run apt-get -y upgrade
 
 run apt-get -y install \
   wget \
@@ -28,14 +23,6 @@ run apt-get -y install \
 
 run ( gem -v | grep 2.2.1 ) || ( REALLY_GEM_UPDATE_SYSTEM=1 gem update --system --no-ri --no-rdoc )
 
-run apt-get -y install upstart postgresql-9.1 postgresql-contrib-9.1
-
-run apt-get install python-software-properties -y
-run add-apt-repository ppa:chris-lea/redis-server
-run apt-get update
-
-run apt-get update && apt-get install -y redis-server
-
 run mkdir -p /opt
 
 run apt-get install -y zip
@@ -43,11 +30,6 @@ run cd /opt && git clone https://github.com/kennethreitz/bpwatch.git && cd bpwat
 
 run apt-get clean
 run rm -rf /usr/local/src/*
-
-run service postgresql start && \
-  echo "CREATE USER \"user\" SUPERUSER PASSWORD 'pass';" | su - postgres -c psql && \
-  echo "CREATE DATABASE dbname;" | su - postgres -c psql && \
-  echo "GRANT ALL PRIVILEGES ON DATABASE \"dbname\" TO \"user\";" | su - postgres -c psql
 
 run adduser pkgr --shell /bin/bash --disabled-password --gecos "" --home /home/pkgr --uid 1234 --group --system
 
