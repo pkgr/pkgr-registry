@@ -47,6 +47,8 @@ run echo "pkgr ALL=(ALL) NOPASSWD: /usr/bin/yum, /sbin/service" >> /etc/sudoers
 run sed -i 's/Defaults    requiretty//' /etc/sudoers
 
 run yum install -y pkgconfig cmake
+# epel required for socat
+run yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 run yum install -y socat
 run yum install -y bzr mercurial
 
