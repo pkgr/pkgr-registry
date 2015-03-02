@@ -46,8 +46,6 @@ run cd /usr/local/src/pkgr && gem build pkgr.gemspec && gem install pkgr-*.gem -
 run echo "pkgr ALL=(ALL) NOPASSWD: /usr/bin/yum, /sbin/service" >> /etc/sudoers
 run sed -i 's/Defaults    requiretty//' /etc/sudoers
 
-run echo "host    all             all             127.0.0.1/32            md5" > /var/lib/pgsql/9.1/data/pg_hba.conf
-
 run yum install -y pkgconfig cmake
 run yum install -y socat
 run yum install -y bzr mercurial
