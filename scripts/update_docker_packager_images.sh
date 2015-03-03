@@ -74,9 +74,4 @@ for tag in ${base_tags} ; do
   rm -rf "$dir"
 done
 
-sudo docker build -t ${REGISTRY}rpm_s3/centos:6.4 ${RPMS3_DOCKER_DIR}/
-sudo docker push ${REGISTRY}rpm_s3/centos:6.4
-
 echo "DONE!"
-
-# cp -r ${DIR}/files/${ENVIRONMENT}/.rpmmacros /home/longhouse/ && chown -R longhouse.longhouse /home/longhouse/.rpmmacros
