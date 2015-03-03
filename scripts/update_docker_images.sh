@@ -6,11 +6,11 @@ set -o pipefail
 PKGR_STABLE_COMMIT="f297b43fc48b5a44b9b4db03457c54471c392533"
 PKGR_TESTING_BRANCH=${PKGR_TESTING_BRANCH:="testing"}
 
-WEB_DIR=${WEB_DIR:="/web"}
-DOCKER_DIR="${WEB_DIR}/registry/docker"
-RPMS3_DOCKER_DIR="${WEB_DIR}/registry/rpm-s3"
+REGISTRY_DIR=${REGISTRY_DIR:="/web/registry"}
+DOCKER_DIR="${REGISTRY_DIR}/docker"
+RPMS3_DOCKER_DIR="${REGISTRY_DIR}/rpm-s3"
 # we don't use it, as it is unreliable, and tries to always login.
-REGISTRY=""
+REGISTRY=${REGISTRY:=""}
 
 sudo docker pull postgres:9.3
 sudo docker pull redis:2.8.13
