@@ -14,11 +14,6 @@ REGISTRY=${REGISTRY:=""}
 
 sudo docker pull postgres:9.3
 sudo docker pull redis:2.8.13
-# sudo docker pull ubuntu:12.04
-# sudo docker pull ubuntu:14.04
-# sudo docker pull debian:7
-# sudo docker pull centos:centos6
-# sudo docker pull fedora:20
 
 generate_pkgr_install_command() {
   local sha="$1"
@@ -45,6 +40,7 @@ IMAGES="${IMAGES:="debian/7 ubuntu/12.04 ubuntu/14.04 centos/6 centos/7 fedora/2
 base_tags=""
 # Build base docker images
 for image in ${IMAGES} ; do
+	sudo docker pull ${image//\//:}
 	sudo docker build -t ${REGISTRY}pkgr_base/${image//\//:} ${DOCKER_DIR}/${image}
 	base_tags=$(echo -e "${base_tags}\npkgr_base/${image//\//:}")
 done
