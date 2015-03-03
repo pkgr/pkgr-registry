@@ -40,7 +40,11 @@ IMAGES="${IMAGES:="debian/7 ubuntu/12.04 ubuntu/14.04 centos/6 centos/7 fedora/2
 base_tags=""
 # Build base docker images
 for image in ${IMAGES} ; do
-	sudo docker pull ${image//\//:}
+	if [ "$image" = "sles/12" ] ; then
+		sudo docker pull crohr/sles:12
+	else
+		sudo docker pull ${image//\//:}
+	fi
 	sudo docker build -t ${REGISTRY}pkgr_base/${image//\//:} ${DOCKER_DIR}/${image}
 	base_tags=$(echo -e "${base_tags}\npkgr_base/${image//\//:}")
 done
