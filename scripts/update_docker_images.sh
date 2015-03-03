@@ -47,6 +47,7 @@ for image in ${IMAGES} ; do
 	fi
 	sudo docker build -t ${REGISTRY}pkgr_base/${image//\//:} ${DOCKER_DIR}/${image}
 	base_tags=$(echo -e "${base_tags}\npkgr_base/${image//\//:}")
+	sudo docker push ${REGISTRY}pkgr_base/${image//\//:}
 done
 
 echo $base_tags
@@ -57,6 +58,7 @@ for tag in ${base_tags} ; do
   dst_tag=${tag/base/$dst}
   dir=$(generate_dockerfile "$tag" "${PKGR_STABLE_COMMIT}")
   sudo docker build -t "${REGISTRY}${dst_tag}" ${dir}
+  sudo docker push "${REGISTRY}${dst_tag}"
   rm -rf "$dir"
 done
 
@@ -68,10 +70,12 @@ for tag in ${base_tags} ; do
   dst_tag=${tag/base/$dst}
   dir=$(generate_dockerfile "$tag" "${latest_sha}")
   sudo docker build -t "${REGISTRY}${dst_tag}" ${dir}
+  sudo docker push "${REGISTRY}${dst_tag}"
   rm -rf "$dir"
 done
 
 sudo docker build -t ${REGISTRY}rpm_s3/centos:6.4 ${RPMS3_DOCKER_DIR}/
+sudo docker push ${REGISTRY}rpm_s3/centos:6.4
 
 echo "DONE!"
 
