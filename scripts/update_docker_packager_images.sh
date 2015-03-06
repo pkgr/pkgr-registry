@@ -28,7 +28,7 @@ generate_dockerfile() {
 
   cp -r ${DOCKER_DIR}/common ${dir}/
   cat - > ${dir}/Dockerfile <<EOF
-FROM ${REGISTRY}${src}
+FROM ${REGISTRY}/${src}
 RUN $(generate_pkgr_install_command "${sha}")
 ADD common/bin/annotate-output /usr/bin/
 ADD common/bin/logger /usr/bin/
