@@ -47,10 +47,6 @@ for image in ${IMAGES} ; do
 	fi
 	sudo docker build -t pkgr_base/${image//\//:} ${DOCKER_DIR}/${image}
 	base_tags=$(echo -e "${base_tags}\npkgr_base/${image//\//:}")
-	if [ "$REGISTRY" != "" ]; then
-		sudo docker tag pkgr_base/${image//\//:} ${REGISTRY}/pkgr_base/${image//\//:}
-		sudo docker push ${REGISTRY}/pkgr_base/${image//\//:}
-	fi
 done
 
 echo $base_tags
@@ -63,7 +59,7 @@ for tag in ${base_tags} ; do
   sudo docker build -t "${dst_tag}" ${dir}
   if [ "$REGISTRY" != "" ]; then
 	  sudo docker tag "${dst_tag}" "${REGISTRY}/${dst_tag}"
-	  sudo docker push "${REGISTRY}/${dst_tag}"
+	  sudo docker push "${REGISTRY}/pkgr_base"
   fi
   rm -rf "$dir"
 done
@@ -78,7 +74,7 @@ for tag in ${base_tags} ; do
   sudo docker build -t "${dst_tag}" ${dir}
   if [ "$REGISTRY" != "" ]; then
 	  sudo docker tag "${dst_tag}" "${REGISTRY}/${dst_tag}"
-	  sudo docker push "${REGISTRY}/${dst_tag}"
+	  sudo docker push "${REGISTRY}/pkgr_testing"
   fi
   rm -rf "$dir"
 done
