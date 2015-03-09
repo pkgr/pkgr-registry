@@ -47,7 +47,7 @@ for image in ${IMAGES} ; do
 	fi
 	sudo docker build -t pkgr_base/${image//\//:} ${DOCKER_DIR}/${image}
 	if [ "$REGISTRY" != "" ]; then
-		sudo docker tag pkgr_base/${image//\//:} ${REGISTRY}/pkgr_base/${image//\//:}
+		sudo docker tag -f pkgr_base/${image//\//:} ${REGISTRY}/pkgr_base/${image//\//:}
 		sudo docker push ${REGISTRY}/pkgr_base/${image//\//:}
 	fi
 	base_tags=$(echo -e "${base_tags}\npkgr_base/${image//\//:}")
