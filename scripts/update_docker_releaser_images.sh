@@ -10,7 +10,7 @@ REGISTRY=${REGISTRY:=""}
 
 sudo docker build -t rpm_s3/centos:6.4 ${RPMS3_DOCKER_DIR}/
 if [ "$REGISTRY" != "" ]; then
-	sudo docker tag rpm_s3/centos:6.4 ${REGISTRY}/rpm_s3/centos:6.4
+	sudo docker tag -f rpm_s3/centos:6.4 ${REGISTRY}/rpm_s3/centos:6.4
 	sudo docker push ${REGISTRY}/rpm_s3/centos:6.4
 fi
 
