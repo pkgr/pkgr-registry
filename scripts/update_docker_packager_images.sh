@@ -62,7 +62,7 @@ for tag in ${base_tags} ; do
   dir=$(generate_dockerfile "$tag" "${PKGR_STABLE_COMMIT}")
   sudo docker build -t "${dst_tag}" ${dir}
   if [ "$REGISTRY" != "" ]; then
-	  sudo docker tag "${dst_tag}" "${REGISTRY}/${dst_tag}"
+	  sudo docker tag -f "${dst_tag}" "${REGISTRY}/${dst_tag}"
 	  sudo docker push "${REGISTRY}/${dst_tag}"
   fi
   rm -rf "$dir"
@@ -77,7 +77,7 @@ for tag in ${base_tags} ; do
   dir=$(generate_dockerfile "$tag" "${latest_sha}")
   sudo docker build -t "${dst_tag}" ${dir}
   if [ "$REGISTRY" != "" ]; then
-	  sudo docker tag "${dst_tag}" "${REGISTRY}/${dst_tag}"
+	  sudo docker tag -f "${dst_tag}" "${REGISTRY}/${dst_tag}"
 	  sudo docker push "${REGISTRY}/${dst_tag}"
   fi
   rm -rf "$dir"
