@@ -1,31 +1,32 @@
 from ubuntu:14.04
 
+run locale-gen en_US en_US.UTF-8
+
 run apt-get -y update
 
-run apt-get -y install \
-  wget \
-  git \
-  sudo \
-  lsb-release \
-  curl \
-  libssl0.9.8 \
-  libmysqlclient-dev \
-  libpq-dev \
-  libsqlite3-0 \
-  libevent-dev \
-  libssl-dev \
-  libxml2-dev \
-  libxslt1-dev \
-  libreadline-dev \
-  build-essential \
-  libmagickcore-dev
-
-run apt-get install -y dh-make cmake pkg-config
-run apt-get install -y socat
-run apt-get install -y bzr mercurial
-run apt-get install -y zip
-
-run locale-gen en_US en_US.UTF-8
+run apt-get -y install wget
+run apt-get -y install git
+run apt-get -y install sudo
+run apt-get -y install lsb-release
+run apt-get -y install curl
+run apt-get -y install libssl0.9.8
+run apt-get -y install libmysqlclient-dev
+run apt-get -y install libpq-dev
+run apt-get -y install libsqlite3-0
+run apt-get -y install libevent-dev
+run apt-get -y install libssl-dev
+run apt-get -y install libxml2-dev
+run apt-get -y install libxslt1-dev
+run apt-get -y install libreadline-dev
+run apt-get -y install build-essential
+run apt-get -y install libmagickcore-dev
+run apt-get -y install dh-make
+run apt-get -y install cmake
+run apt-get -y install pkg-config
+run apt-get -y install socat
+run apt-get -y install bzr
+run apt-get -y install mercurial
+run apt-get -y install zip
 
 run curl https://s3.amazonaws.com/pkgr-buildpack-ruby/current/ubuntu-14.04/ruby-2.1.5.tgz -o - | tar xzf - -C /usr/local
 
